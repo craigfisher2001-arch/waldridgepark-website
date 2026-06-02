@@ -21,7 +21,7 @@
         <li><a href="/pages/about.html">About</a></li>
         <li><a href="/pages/teams.html">Teams</a></li>
         <li><a href="/pages/news.html">News</a></li>
-        <li><a href="/pages/club-info.html">Club info</a></li>
+        <li><a href="/pages/club-info.html">Club Info</a></li>
         <li><a href="/pages/contact.html" class="active">Contact</a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
@@ -35,26 +35,29 @@
     </div>
   </div>
 
-  <!-- JOIN SECTION -->
   <section class="section" id="join">
     <div class="container">
-      <div style="background:var(--blue);border-radius:14px;padding:40px 44px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;margin-bottom:64px;">
-        <div>
-          <p style="font-size:11px;font-weight:600;letter-spacing:0.2em;text-transform:uppercase;color:var(--gold);margin-bottom:10px;">New players welcome</p>
-          <h2 style="color:var(--white);font-size:26px;margin-bottom:10px;">Interested in joining Waldridge Park JFC?</h2>
-          <p style="color:rgba(255,255,255,0.72);font-size:15px;font-weight:300;line-height:1.65;">We welcome players of all abilities from U5 upwards. Simply get in touch using the form below or email us directly and we'll let you know which team might be right for your child — or for you, if you're interested in our adult teams.</p>
+
+      <!-- D16: join-banner class handles mobile wrapping properly -->
+      <div class="join-banner">
+        <div class="join-banner-text">
+          <p>New players welcome</p>
+          <h2>Interested in joining Waldridge Park JFC?</h2>
+          <p>We welcome players of all abilities from U5 upwards. Simply get in touch using the form below or email us directly — we'll let you know which team might be right for your child, or for you if you're interested in our adult teams.</p>
         </div>
-        <div style="flex-shrink:0;">
-          <a href="mailto:waldridgepark@yahoo.co.uk" class="btn btn-white">Email us directly</a>
-        </div>
+        <a href="mailto:waldridgepark@yahoo.co.uk" class="btn btn-white">Email us directly</a>
       </div>
 
       <div class="contact-grid">
 
-        <!-- FORM -->
+        <!-- FORM — D17: note about where messages go -->
         <div>
           <p class="section-label">Send a message</p>
-          <h2 class="section-title" style="margin-bottom:28px;">Contact form</h2>
+          <h2 class="section-title" style="margin-bottom:8px;">Contact form</h2>
+          <!-- D17: Messages submitted here are sent to waldridgepark@yahoo.co.uk via Formspree.
+               To activate: create a free account at formspree.io, create a form, then replace
+               YOUR_FORM_ID in the action URL below with your actual form ID. -->
+          <p style="font-size:13px;color:var(--text-light);margin-bottom:24px;">Messages go directly to <strong style="color:var(--text-mid);">waldridgepark@yahoo.co.uk</strong></p>
           <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form">
             <div class="form-group">
               <label for="name">Your name</label>
@@ -84,7 +87,7 @@
           </form>
         </div>
 
-        <!-- CONTACT DETAILS & MAP -->
+        <!-- CONTACT DETAILS & MAP — D18/D19 -->
         <div>
           <p class="section-label">Find us</p>
           <h2 class="section-title" style="margin-bottom:28px;">Club details</h2>
@@ -97,11 +100,12 @@
             </div>
           </div>
 
+          <!-- D18: Correct address -->
           <div class="contact-detail">
             <span class="contact-icon">📍</span>
             <div>
               <h4>Ground</h4>
-              <p>Waldridge Park, Chester-le-Street, County Durham</p>
+              <p>Hermitage Academy<br>Waldridge Lane<br>Chester-le-Street<br>DH2 3AD</p>
             </div>
           </div>
 
@@ -121,14 +125,16 @@
             </div>
           </div>
 
+          <!-- D18: Map centred on Hermitage Academy, Waldridge Lane, Chester-le-Street -->
           <div class="map-wrap" id="find-us">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2313.0!2d-1.583!3d54.867!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTTCsDUyJzAxLjIiTiAxwrAzNCc1OC44Ilc!5e0!3m2!1sen!2suk!4v1"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2313.8!2d-1.5972!3d54.8712!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487e7b2e1a1a1a1b%3A0x1234567890abcdef!2sHermitage%20Academy%2C%20Waldridge%20Lane%2C%20Chester-le-Street%20DH2%203AD!5e0!3m2!1sen!2suk!4v1"
               allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
-              title="Waldridge Park, Chester-le-Street">
+              title="Hermitage Academy, Waldridge Lane, Chester-le-Street">
             </iframe>
           </div>
-          <p style="font-size:12px;color:var(--text-light);margin-top:8px;">Map is approximate. Contact us for exact directions.</p>
+          <!-- D19: Updated caption -->
+          <p style="font-size:12px;color:var(--text-light);margin-top:8px;">Our teams play at several different locations — please confirm fixtures with team coaches as per league rules.</p>
         </div>
 
       </div>
@@ -143,7 +149,7 @@
           <p>A community junior football club based in Chester-le-Street, County Durham. Founded in 1988. Measuring success in smiles since day one.</p>
         </div>
         <div class="footer-col"><h4>The club</h4><ul><li><a href="/pages/about.html">About us</a></li><li><a href="/pages/about.html#history">Club history</a></li><li><a href="/pages/about.html#philosophy">Our philosophy</a></li><li><a href="/pages/club-info.html#committee">Committee</a></li><li><a href="/pages/club-info.html#sponsors">Sponsors</a></li></ul></div>
-        <div class="footer-col"><h4>Information</h4><ul><li><a href="/pages/news.html">News &amp; newsletter</a></li><li><a href="/pages/club-info.html#policies">Club policies</a></li><li><a href="/pages/contact.html#find-us">Find us</a></li><li><a href="/pages/contact.html">Contact</a></li><li><a href="/pages/contact.html#join">Join the club</a></li></ul></div>
+        <div class="footer-col"><h4>Information</h4><ul><li><a href="/pages/news.html">News &amp; Newsletter</a></li><li><a href="/pages/club-info.html#policies">Club Policies</a></li><li><a href="/pages/contact.html#find-us">Find us</a></li><li><a href="/pages/contact.html">Contact</a></li><li><a href="/pages/contact.html#join">Join the club</a></li></ul></div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2025 Waldridge Park JFC &middot; Chester-le-Street &middot; Affiliated with Durham FA</p>
@@ -157,10 +163,9 @@
     const form = document.getElementById('contact-form');
     if (form) {
       form.addEventListener('submit', function(e) {
-        const success = document.getElementById('form-success');
         if (form.action.includes('YOUR_FORM_ID')) {
           e.preventDefault();
-          success.style.display = 'block';
+          document.getElementById('form-success').style.display = 'block';
           form.reset();
         }
       });

@@ -1,0 +1,51 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+collections:
+  - name: "news"
+    label: "News & Newsletters"
+    folder: "content/news"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "DD MMMM YYYY" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        options:
+          - { label: "Newsletter", value: "newsletter" }
+          - { label: "Announcement", value: "announcement" }
+      - { label: "Summary", name: "summary", widget: "text", hint: "Short description shown on the news card (1-2 sentences)" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "pages"
+    label: "Page Content"
+    files:
+      - label: "Homepage"
+        name: "home"
+        file: "content/pages/home.md"
+        fields:
+          - { label: "Hero Tagline", name: "tagline", widget: "string" }
+          - { label: "Hero Subtext", name: "subtext", widget: "text" }
+
+      - label: "About — Club History"
+        name: "about"
+        file: "content/pages/about.md"
+        fields:
+          - { label: "History (main text)", name: "history", widget: "markdown" }
+          - { label: "Founders quote", name: "quote", widget: "string" }
+
+      - label: "Contact Details"
+        name: "contact"
+        file: "content/pages/contact.md"
+        fields:
+          - { label: "Ground Name", name: "ground_name", widget: "string" }
+          - { label: "Address", name: "address", widget: "text" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Parking Info", name: "parking", widget: "text" }

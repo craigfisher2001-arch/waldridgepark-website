@@ -73,38 +73,8 @@
       <p class="section-label">Latest from the club</p>
       <h2 class="section-title">News &amp; Updates</h2>
       <p class="section-intro">Stay up to date with club announcements and our monthly newsletter.</p>
-      <div class="news-grid">
-
-        <a href="/pages/article.html?slug=2025-05-27-end-of-season-round-up" class="news-card">
-          <div class="news-card-img"><img src="/images/photo-huddle.jpg" alt="Team huddle"></div>
-          <div class="news-card-body">
-            <p class="news-tag">Newsletter</p>
-            <h3>End of season round-up — May 2025</h3>
-            <p>A look back at a fantastic season across all age groups, plus what's coming up over the summer.</p>
-            <p class="news-date">27 May 2025</p>
-          </div>
-        </a>
-
-        <a href="/pages/article.html?slug=2025-05-14-summer-training-dates" class="news-card">
-          <div class="news-card-img"><img src="/images/photo-action-1.jpg" alt="Player in action"></div>
-          <div class="news-card-body">
-            <p class="news-tag">Announcement</p>
-            <h3>Summer training dates confirmed</h3>
-            <p>Training schedules for all age groups through July and August are now confirmed. Check your team page for details.</p>
-            <p class="news-date">14 May 2025</p>
-          </div>
-        </a>
-
-        <a href="/pages/news.html" class="news-card">
-          <div class="news-card-img"><img src="/images/photo-action-2.jpg" alt="Player with ball"></div>
-          <div class="news-card-body">
-            <p class="news-tag">Newsletter</p>
-            <h3>April newsletter — tournament season begins</h3>
-            <p>Six of our teams took part in regional tournaments this month. A great day out for players, parents and coaches alike.</p>
-            <p class="news-date">30 April 2025</p>
-          </div>
-        </a>
-
+      <div class="news-grid" id="home-news-grid">
+        <div style="color:var(--text-light);padding:40px 0;grid-column:1/-1;text-align:center;">Loading latest news...</div>
       </div>
       <div style="margin-top:32px;text-align:center;">
         <a href="/pages/news.html" class="btn btn-outline-blue">All News &amp; Newsletters</a>
@@ -215,6 +185,78 @@
     document.getElementById('nav-toggle').addEventListener('click', function() {
       document.getElementById('nav-links').classList.toggle('open');
     });
+
+    // Auto-discover and display 3 most recent news posts
+    const GITHUB_REPO = 'craigfisher2001-arch/waldridgepark-website';
+
+    function parseFrontmatter(text) {
+      const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      if (!match) return { data: {}, content: text };
+      const data = {};
+      match[1].split('\n').forEach(line => {
+        const colonIdx = line.indexOf(':');
+        if (colonIdx > -1) {
+          const key = line.slice(0, colonIdx).trim();
+          const value = line.slice(colonIdx + 1).trim();
+          data[key] = value;
+        }
+      });
+      return { data, content: match[2] };
+    }
+
+    function buildCard(slug, data) {
+      const img = data.image
+        ? `<div class="news-card-img"><img src="${data.image}" alt="${data.title}"></div>`
+        : `<div class="news-card-img" style="background:var(--blue-light);display:flex;align-items:center;justify-content:center;"><span style="font-size:11px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.1em;">Waldridge Park JFC</span></div>`;
+      return `
+        <a href="/pages/article.html?slug=${slug}" class="news-card">
+          ${img}
+          <div class="news-card-body">
+            <p class="news-tag">${data.category === 'newsletter' ? 'Newsletter' : 'Announcement'}</p>
+            <h3>${data.title}</h3>
+            <p>${data.summary || ''}</p>
+            <p class="news-date">${data.date || ''}</p>
+          </div>
+        </a>`;
+    }
+
+    async function loadHomeNews() {
+      const grid = document.getElementById('home-news-grid');
+      try {
+        const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/content/news`;
+        const res = await fetch(apiUrl, { headers: { 'Accept': 'application/vnd.github.v3+json' } });
+        if (!res.ok) throw new Error('Could not fetch news');
+        const files = await res.json();
+        const mdFiles = files.filter(f => f.name.endsWith('.md')).map(f => f.name.replace('.md', ''));
+
+        const results = await Promise.all(
+          mdFiles.map(async slug => {
+            try {
+              const r = await fetch(`/content/news/${slug}.md`);
+              if (!r.ok) return null;
+              const text = await r.text();
+              const { data } = parseFrontmatter(text);
+              return { slug, data };
+            } catch { return null; }
+          })
+        );
+
+        const posts = results
+          .filter(Boolean)
+          .sort((a, b) => new Date(b.data.date) - new Date(a.data.date))
+          .slice(0, 3);
+
+        if (posts.length === 0) {
+          grid.innerHTML = `<div style="color:var(--text-light);grid-column:1/-1;">No news yet — check back soon.</div>`;
+        } else {
+          grid.innerHTML = posts.map(p => buildCard(p.slug, p.data)).join('');
+        }
+      } catch {
+        grid.innerHTML = `<div style="color:var(--text-light);grid-column:1/-1;">Unable to load news.</div>`;
+      }
+    }
+
+    loadHomeNews();
   </script>
 
 </body>

@@ -1,51 +1,78 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: craigfisher2001-arch/waldridgepark-website
   branch: main
+  base_url: https://waldridgepark-website.craigfisher2001.workers.dev
+  auth_endpoint: /api/auth
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
+
+  # ── NEWS & NEWSLETTERS ──
   - name: "news"
     label: "News & Newsletters"
     folder: "content/news"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    summary: "{{title}} — {{date}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Date", name: "date", widget: "datetime", format: "DD MMMM YYYY" }
+      - { label: "Date", name: "date", widget: "datetime", format: "DD MMMM YYYY", date_format: "DD MMMM YYYY", time_format: false }
       - label: "Category"
         name: "category"
         widget: "select"
         options:
           - { label: "Newsletter", value: "newsletter" }
           - { label: "Announcement", value: "announcement" }
-      - { label: "Summary", name: "summary", widget: "text", hint: "Short description shown on the news card (1-2 sentences)" }
-      - { label: "Featured Image", name: "image", widget: "image", required: false }
+      - { label: "Summary", name: "summary", widget: "text", hint: "Short description shown on the news card (1-2 sentences max)" }
+      - { label: "Featured Image", name: "image", widget: "image", required: false, hint: "Use a landscape photo for best results" }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  - name: "pages"
-    label: "Page Content"
-    files:
-      - label: "Homepage"
-        name: "home"
-        file: "content/pages/home.md"
-        fields:
-          - { label: "Hero Tagline", name: "tagline", widget: "string" }
-          - { label: "Hero Subtext", name: "subtext", widget: "text" }
+  # ── CLUB HISTORY STORIES ──
+  - name: "history"
+    label: "Club History"
+    folder: "content/history"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{title}} — {{contributor}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string", hint: "e.g. 'My first season at Waldridge Park'" }
+      - { label: "Contributor name", name: "contributor", widget: "string", hint: "e.g. Alan Harman, founder" }
+      - { label: "Approximate year", name: "year", widget: "string", required: false, hint: "e.g. 1992, or leave blank if unknown" }
+      - { label: "Story", name: "body", widget: "markdown" }
 
-      - label: "About — Club History"
-        name: "about"
-        file: "content/pages/about.md"
-        fields:
-          - { label: "History (main text)", name: "history", widget: "markdown" }
-          - { label: "Founders quote", name: "quote", widget: "string" }
+  # ── COMMITTEE MEMBERS ──
+  - name: "committee"
+    label: "Committee Members"
+    folder: "content/committee"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{name}} — {{role}}"
+    fields:
+      - { label: "Full name", name: "name", widget: "string" }
+      - { label: "Role", name: "role", widget: "string", hint: "e.g. Chairman, Secretary, Welfare Officer" }
+      - { label: "Email (optional)", name: "email", widget: "string", required: false, hint: "Leave blank to use the club email" }
+      - label: "Display order"
+        name: "order"
+        widget: "number"
+        default: 99
+        hint: "Lower numbers appear first. Chairman = 1, Vice Chair = 2, etc."
 
-      - label: "Contact Details"
-        name: "contact"
-        file: "content/pages/contact.md"
-        fields:
-          - { label: "Ground Name", name: "ground_name", widget: "string" }
-          - { label: "Address", name: "address", widget: "text" }
-          - { label: "Email", name: "email", widget: "string" }
-          - { label: "Parking Info", name: "parking", widget: "text" }
+  # ── SPONSORS ──
+  - name: "sponsors"
+    label: "Sponsors"
+    folder: "content/sponsors"
+    create: true
+    slug: "{{slug}}"
+    summary: "{{name}}"
+    fields:
+      - { label: "Sponsor name", name: "name", widget: "string" }
+      - { label: "Logo", name: "logo", widget: "image", hint: "Upload the sponsor's logo image" }
+      - { label: "Website (optional)", name: "website", widget: "string", required: false, hint: "e.g. https://www.sponsorwebsite.com" }
+      - label: "Display order"
+        name: "order"
+        widget: "number"
+        default: 99
+        hint: "Lower numbers appear first"

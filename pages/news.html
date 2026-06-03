@@ -100,11 +100,8 @@
       document.getElementById('nav-links').classList.toggle('open');
     });
 
-    // List of news post filenames — update this when new posts are added via CMS
-    const NEWS_FILES = [
-      '2025-05-27-end-of-season-round-up',
-      '2025-05-14-summer-training-dates',
-    ];
+    const GITHUB_REPO = 'craigfisher2001-arch/waldridgepark-website';
+    const NEWS_PATH = 'content/news';
 
     function parseFrontmatter(text) {
       const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
@@ -161,21 +158,42 @@
     }
 
     async function loadNews() {
-      const results = await Promise.all(
-        NEWS_FILES.map(async slug => {
-          try {
-            const res = await fetch(`/content/news/${slug}.md`);
-            if (!res.ok) return null;
-            const text = await res.text();
-            const { data } = parseFrontmatter(text);
-            return { slug, data };
-          } catch { return null; }
-        })
-      );
-      allPosts = results.filter(Boolean);
-      // Sort by date descending (most recent first)
-      allPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
-      renderPosts('all');
+      try {
+        // Use GitHub API to auto-discover all markdown files in content/news/
+        const apiUrl = `https://api.github.com/repos/${GITHUB_REPO}/contents/${NEWS_PATH}`;
+        const res = await fetch(apiUrl, {
+          headers: { 'Accept': 'application/vnd.github.v3+json' }
+        });
+        if (!res.ok) throw new Error('Could not fetch news list');
+        const files = await res.json();
+
+        // Filter to only .md files and extract slugs
+        const mdFiles = files
+          .filter(f => f.name.endsWith('.md'))
+          .map(f => f.name.replace('.md', ''));
+
+        // Fetch each post's content
+        const results = await Promise.all(
+          mdFiles.map(async slug => {
+            try {
+              const r = await fetch(`/content/news/${slug}.md`);
+              if (!r.ok) return null;
+              const text = await r.text();
+              const { data } = parseFrontmatter(text);
+              return { slug, data };
+            } catch { return null; }
+          })
+        );
+
+        allPosts = results.filter(Boolean);
+        // Sort by date descending
+        allPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+        renderPosts('all');
+
+      } catch (err) {
+        document.getElementById('news-grid').innerHTML =
+          `<div style="color:var(--text-light);padding:40px 0;">Unable to load news. Please try again shortly.</div>`;
+      }
     }
 
     loadNews();

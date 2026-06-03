@@ -2,8 +2,8 @@ backend:
   name: github
   repo: craigfisher2001-arch/waldridgepark-website
   branch: main
-  base_url: https://waldridgepark-website.craigfisher2001.workers.dev
-  auth_endpoint: /api/auth
+  auth_type: implicit
+  app_id: Ov23liuXXP82NFmi6ddv
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"

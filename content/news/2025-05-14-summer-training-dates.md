@@ -1,13 +1,10 @@
 ---
-title: Summer training dates confirmed
+title: Season 2025/26 Complete
 date: 14 May 2025
 category: announcement
-summary: Training schedules for all age groups through July and August are now confirmed. Check your team page for details.
+summary: Thats a wrap for 2025/26
 image: /images/photo-action-1.jpg
 ---
+After a long and enjoyable nine months season 2025/26 has officially come to an end. Well done to all our players, coaches and families for the efforts this season, you have represented the club with honour.
 
-Summer training dates are now confirmed for all age groups. Please contact your team coach directly for exact times and locations, as these vary by age group.
-
-A reminder that all training sessions take place at Hermitage Academy, Waldridge Lane, Chester-le-Street, DH2 3AD unless your coach advises otherwise.
-
-If you have any questions please email us at waldridgepark@yahoo.co.uk.
+Enjoy your summer breaks and we look forward to season 2026/27 getting underway shortly

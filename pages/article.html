@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News — Waldridge Park JFC</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="icon" href="/images/badge.png" type="image/png">
+  <style>
+    .article-hero {
+      height: 340px;
+      overflow: hidden;
+      position: relative;
+      background: var(--blue);
+    }
+    .article-hero img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      opacity: 0.55;
+    }
+    .article-hero-text {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px;
+      background: linear-gradient(transparent 20%, rgba(10,28,64,0.85) 100%);
+    }
+    .article-hero-text h1 { color: var(--white); font-size: clamp(24px,4vw,40px); margin-bottom: 10px; }
+    .article-meta { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .article-tag {
+      font-size: 10px; font-weight: 600; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--gold);
+    }
+    .article-date { font-size: 13px; color: rgba(255,255,255,0.65); }
+    .article-body { max-width: 720px; margin: 0 auto; padding: 56px 40px; }
+    .article-body h2 { font-size: 24px; margin: 32px 0 12px; color: var(--blue); }
+    .article-body h3 { font-size: 20px; margin: 24px 0 10px; }
+    .article-body p { font-size: 16px; color: var(--text-mid); line-height: 1.8; margin-bottom: 18px; font-weight: 300; }
+    .article-body ul, .article-body ol { padding-left: 24px; margin-bottom: 18px; }
+    .article-body li { font-size: 16px; color: var(--text-mid); line-height: 1.8; font-weight: 300; margin-bottom: 6px; }
+    .article-body strong { color: var(--text); font-weight: 600; }
+    .article-body a { color: var(--blue-mid); }
+    .back-link { display: inline-flex; align-items: center; gap: 8px; color: var(--blue-mid); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 32px; }
+    .back-link:hover { color: var(--blue); }
+    .loading { text-align: center; padding: 80px 40px; color: var(--text-light); font-size: 16px; }
+    .no-hero .page-hero { display: block; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <a href="/index.html" class="nav-logo">
+        <img src="/images/badge.png" alt="Waldridge Park JFC crest">
+        <div class="nav-logo-text">Waldridge Park JFC<span>Chester-le-Street · Est. 1988</span></div>
+      </a>
+      <ul class="nav-links" id="nav-links">
+        <li><a href="/index.html">Home</a></li>
+        <li><a href="/pages/about.html">About</a></li>
+        <li><a href="/pages/teams.html">Teams</a></li>
+        <li><a href="/pages/news.html" class="active">News</a></li>
+        <li><a href="/pages/club-info.html">Club Info</a></li>
+        <li><a href="/pages/contact.html">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+    </div>
+  </nav>
+
+  <div id="article-container"><div class="loading">Loading article...</div></div>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="/index.html" class="footer-logo"><img src="/images/badge.png" alt="Waldridge Park JFC"><div class="footer-logo-text">Waldridge Park JFC<span>Est. 1988</span></div></a>
+          <p>A community junior football club based in Chester-le-Street, County Durham. Founded in 1988. Measuring success in smiles since day one.</p>
+        </div>
+        <div class="footer-col"><h4>The club</h4><ul><li><a href="/pages/about.html">About us</a></li><li><a href="/pages/about.html#history">Club history</a></li><li><a href="/pages/about.html#philosophy">Our philosophy</a></li><li><a href="/pages/club-info.html#committee">Committee</a></li><li><a href="/pages/club-info.html#sponsors">Sponsors</a></li></ul></div>
+        <div class="footer-col"><h4>Information</h4><ul><li><a href="/pages/news.html">News &amp; Newsletter</a></li><li><a href="/pages/club-info.html#policies">Club Policies</a></li><li><a href="/pages/contact.html#find-us">Find us</a></li><li><a href="/pages/contact.html">Contact</a></li><li><a href="/pages/contact.html#join">Join the club</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Waldridge Park JFC &middot; Chester-le-Street &middot; Affiliated with Durham FA</p>
+        <div class="social-links"><a href="https://www.facebook.com/WPJFC88/" class="social-link" title="Facebook" target="_blank" rel="noopener">f</a><a href="https://twitter.com/waldridgepark88" class="social-link" title="X / Twitter" target="_blank" rel="noopener">X</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- marked.js for markdown parsing -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    document.getElementById('nav-toggle').addEventListener('click', function() {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+
+    // Get slug from URL: /pages/article.html?slug=2025-05-27-end-of-season
+    const params = new URLSearchParams(window.location.search);
+    const slug = params.get('slug');
+
+    function parseFrontmatter(text) {
+      const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      if (!match) return { data: {}, content: text };
+      const data = {};
+      match[1].split('\n').forEach(line => {
+        const colonIdx = line.indexOf(':');
+        if (colonIdx > -1) {
+          const key = line.slice(0, colonIdx).trim();
+          const value = line.slice(colonIdx + 1).trim();
+          data[key] = value;
+        }
+      });
+      return { data, content: match[2] };
+    }
+
+    async function loadArticle() {
+      if (!slug) {
+        document.getElementById('article-container').innerHTML = `
+          <div class="loading">
+            <p>No article found.</p>
+            <a href="/pages/news.html" style="color:var(--blue-mid);">← Back to News</a>
+          </div>`;
+        return;
+      }
+
+      try {
+        const res = await fetch(`/content/news/${slug}.md`);
+        if (!res.ok) throw new Error('Not found');
+        const text = await res.text();
+        const { data, content } = parseFrontmatter(text);
+        const html = marked.parse(content);
+
+        // Update page title
+        document.title = `${data.title} — Waldridge Park JFC`;
+
+        const heroHTML = data.image
+          ? `<div class="article-hero">
+               <img src="${data.image}" alt="${data.title}">
+               <div class="article-hero-text">
+                 <div class="article-meta">
+                   <span class="article-tag">${data.category || 'News'}</span>
+                   <span class="article-date">${data.date || ''}</span>
+                 </div>
+                 <h1>${data.title}</h1>
+               </div>
+             </div>`
+          : `<div class="page-hero">
+               <div class="container">
+                 <div class="article-meta" style="margin-bottom:10px;">
+                   <span style="font-size:10px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--gold);">${data.category || 'News'}</span>
+                   <span style="font-size:13px;color:rgba(255,255,255,0.65);margin-left:16px;">${data.date || ''}</span>
+                 </div>
+                 <h1>${data.title}</h1>
+               </div>
+             </div>`;
+
+        document.getElementById('article-container').innerHTML = `
+          ${heroHTML}
+          <div class="article-body">
+            <a href="/pages/news.html" class="back-link">← Back to News</a>
+            ${html}
+          </div>`;
+
+      } catch (e) {
+        document.getElementById('article-container').innerHTML = `
+          <div class="loading">
+            <p>Article not found.</p>
+            <a href="/pages/news.html" style="color:var(--blue-mid);">← Back to News</a>
+          </div>`;
+      }
+    }
+
+    loadArticle();
+  </script>
+</body>
+</html>

@@ -75,7 +75,7 @@
       <p class="section-intro">Stay up to date with club announcements and our monthly newsletter.</p>
       <div class="news-grid">
 
-        <a href="/pages/news.html" class="news-card">
+        <a href="/pages/article.html?slug=2025-05-27-end-of-season-round-up" class="news-card">
           <div class="news-card-img"><img src="/images/photo-huddle.jpg" alt="Team huddle"></div>
           <div class="news-card-body">
             <p class="news-tag">Newsletter</p>
@@ -85,7 +85,7 @@
           </div>
         </a>
 
-        <a href="/pages/news.html" class="news-card">
+        <a href="/pages/article.html?slug=2025-05-14-summer-training-dates" class="news-card">
           <div class="news-card-img"><img src="/images/photo-action-1.jpg" alt="Player in action"></div>
           <div class="news-card-body">
             <p class="news-tag">Announcement</p>
@@ -215,19 +215,6 @@
     document.getElementById('nav-toggle').addEventListener('click', function() {
       document.getElementById('nav-links').classList.toggle('open');
     });
-  </script>
-  <!-- Netlify Identity — handles invite/password reset links -->
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
-        }
-      });
-    }
   </script>
 
 </body>

@@ -7,6 +7,12 @@
   <title>News — Waldridge Park JFC</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="icon" href="/images/badge.png" type="image/png">
+  <style>
+    .news-loading { text-align:center; padding: 60px 0; color: var(--text-light); font-size:16px; }
+    .news-empty { text-align:center; padding: 60px 0; color: var(--text-light); }
+    .news-empty p:first-child { font-size:18px; margin-bottom:8px; }
+    .news-empty p:last-child { font-size:14px; }
+  </style>
 </head>
 <body>
 
@@ -21,7 +27,7 @@
         <li><a href="/pages/about.html">About</a></li>
         <li><a href="/pages/teams.html">Teams</a></li>
         <li><a href="/pages/news.html" class="active">News</a></li>
-        <li><a href="/pages/club-info.html">Club info</a></li>
+        <li><a href="/pages/club-info.html">Club Info</a></li>
         <li><a href="/pages/contact.html">Contact</a></li>
       </ul>
       <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
@@ -39,50 +45,19 @@
     <div class="container">
 
       <!-- Filter tabs -->
-      <div style="display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;">
-        <button onclick="filterNews('all')" id="filter-all" style="padding:8px 18px;border-radius:20px;border:1px solid var(--blue);background:var(--blue);color:var(--white);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;">All</button>
-        <button onclick="filterNews('newsletter')" id="filter-newsletter" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--text-mid);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;">Newsletters</button>
-        <button onclick="filterNews('announcement')" id="filter-announcement" style="padding:8px 18px;border-radius:20px;border:1px solid var(--border);background:var(--white);color:var(--text-mid);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.2s;">Announcements</button>
+      <div style="display:flex;gap:8px;margin-bottom:40px;flex-wrap:wrap;" id="filter-bar">
+        <button onclick="filterNews('all')" id="filter-all" class="filter-btn filter-active">All</button>
+        <button onclick="filterNews('newsletter')" id="filter-newsletter" class="filter-btn">Newsletters</button>
+        <button onclick="filterNews('announcement')" id="filter-announcement" class="filter-btn">Announcements</button>
       </div>
 
-      <div class="news-grid" id="news-grid">
-
-        <a href="#" class="news-card" data-category="newsletter">
-          <div class="news-card-img"><img src="/images/photo-huddle.jpg" alt="Team huddle"></div>
-          <div class="news-card-body">
-            <p class="news-tag">Newsletter</p>
-            <h3>End of season round-up — May 2025</h3>
-            <p>A look back at a fantastic season across all age groups, plus what's coming up over the summer.</p>
-            <p class="news-date">27 May 2025</p>
-          </div>
-        </a>
-
-        <a href="#" class="news-card" data-category="announcement">
-          <div class="news-card-img"><img src="/images/photo-action-1.jpg" alt="Player in action"></div>
-          <div class="news-card-body">
-            <p class="news-tag">Announcement</p>
-            <h3>Summer training dates confirmed</h3>
-            <p>Training schedules for all age groups through July and August are now confirmed. Check your team page for details.</p>
-            <p class="news-date">14 May 2025</p>
-          </div>
-        </a>
-
-        <a href="#" class="news-card" data-category="newsletter">
-          <div class="news-card-img"><img src="/images/photo-action-2.jpg" alt="Player with ball"></div>
-          <div class="news-card-body">
-            <p class="news-tag">Newsletter</p>
-            <h3>April newsletter — tournament season begins</h3>
-            <p>Six of our teams took part in regional tournaments this month. A great day out for players, parents and coaches alike.</p>
-            <p class="news-date">30 April 2025</p>
-          </div>
-        </a>
-
+      <div id="news-grid" class="news-grid">
+        <div class="news-loading">Loading news...</div>
       </div>
 
-      <!-- Empty state (hidden by default) -->
-      <div id="news-empty" style="display:none;text-align:center;padding:60px 0;color:var(--text-light);">
-        <p style="font-size:18px;margin-bottom:8px;">No posts in this category yet.</p>
-        <p style="font-size:14px;">Check back soon.</p>
+      <div id="news-empty" style="display:none;" class="news-empty">
+        <p>No posts in this category yet.</p>
+        <p>Check back soon.</p>
       </div>
 
     </div>
@@ -96,7 +71,7 @@
           <p>A community junior football club based in Chester-le-Street, County Durham. Founded in 1988. Measuring success in smiles since day one.</p>
         </div>
         <div class="footer-col"><h4>The club</h4><ul><li><a href="/pages/about.html">About us</a></li><li><a href="/pages/about.html#history">Club history</a></li><li><a href="/pages/about.html#philosophy">Our philosophy</a></li><li><a href="/pages/club-info.html#committee">Committee</a></li><li><a href="/pages/club-info.html#sponsors">Sponsors</a></li></ul></div>
-        <div class="footer-col"><h4>Information</h4><ul><li><a href="/pages/news.html">News &amp; newsletter</a></li><li><a href="/pages/club-info.html#policies">Club policies</a></li><li><a href="/pages/contact.html#find-us">Find us</a></li><li><a href="/pages/contact.html">Contact</a></li><li><a href="/pages/contact.html#join">Join the club</a></li></ul></div>
+        <div class="footer-col"><h4>Information</h4><ul><li><a href="/pages/news.html">News &amp; Newsletter</a></li><li><a href="/pages/club-info.html#policies">Club Policies</a></li><li><a href="/pages/contact.html#find-us">Find us</a></li><li><a href="/pages/contact.html">Contact</a></li><li><a href="/pages/contact.html#join">Join the club</a></li></ul></div>
       </div>
       <div class="footer-bottom">
         <p>&copy; 2025 Waldridge Park JFC &middot; Chester-le-Street &middot; Affiliated with Durham FA</p>
@@ -105,24 +80,106 @@
     </div>
   </footer>
 
+  <style>
+    .filter-btn {
+      padding: 8px 18px; border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--white); color: var(--text-mid);
+      font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.2s;
+      font-family: var(--font-body);
+    }
+    .filter-active {
+      background: var(--blue) !important;
+      color: var(--white) !important;
+      border-color: var(--blue) !important;
+    }
+  </style>
+
   <script>
-    document.getElementById('nav-toggle').addEventListener('click',function(){document.getElementById('nav-links').classList.toggle('open');});
+    document.getElementById('nav-toggle').addEventListener('click', function() {
+      document.getElementById('nav-links').classList.toggle('open');
+    });
+
+    // List of news post filenames — update this when new posts are added via CMS
+    const NEWS_FILES = [
+      '2025-05-27-end-of-season-round-up',
+      '2025-05-14-summer-training-dates',
+    ];
+
+    function parseFrontmatter(text) {
+      const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+      if (!match) return { data: {}, content: text };
+      const data = {};
+      match[1].split('\n').forEach(line => {
+        const colonIdx = line.indexOf(':');
+        if (colonIdx > -1) {
+          const key = line.slice(0, colonIdx).trim();
+          const value = line.slice(colonIdx + 1).trim();
+          data[key] = value;
+        }
+      });
+      return { data, content: match[2] };
+    }
+
+    function buildCard(slug, data) {
+      const img = data.image
+        ? `<div class="news-card-img"><img src="${data.image}" alt="${data.title}"></div>`
+        : `<div class="news-card-img" style="background:var(--blue-light);display:flex;align-items:center;justify-content:center;"><span style="font-size:11px;color:var(--text-light);text-transform:uppercase;letter-spacing:0.1em;">Waldridge Park JFC</span></div>`;
+      return `
+        <a href="/pages/article.html?slug=${slug}" class="news-card" data-category="${data.category || 'announcement'}">
+          ${img}
+          <div class="news-card-body">
+            <p class="news-tag">${data.category === 'newsletter' ? 'Newsletter' : 'Announcement'}</p>
+            <h3>${data.title}</h3>
+            <p>${data.summary || ''}</p>
+            <p class="news-date">${data.date || ''}</p>
+          </div>
+        </a>`;
+    }
+
+    let allPosts = [];
+    let currentFilter = 'all';
+
+    function renderPosts(filter) {
+      currentFilter = filter;
+      const grid = document.getElementById('news-grid');
+      const empty = document.getElementById('news-empty');
+      const filtered = filter === 'all' ? allPosts : allPosts.filter(p => p.data.category === filter);
+      if (filtered.length === 0) {
+        grid.innerHTML = '';
+        empty.style.display = 'block';
+      } else {
+        empty.style.display = 'none';
+        grid.innerHTML = filtered.map(p => buildCard(p.slug, p.data)).join('');
+      }
+    }
 
     function filterNews(category) {
-      const cards = document.querySelectorAll('.news-card');
-      const buttons = document.querySelectorAll('[id^="filter-"]');
-      buttons.forEach(b => { b.style.background = 'var(--white)'; b.style.color = 'var(--text-mid)'; b.style.borderColor = 'var(--border)'; });
-      document.getElementById('filter-' + category).style.background = 'var(--blue)';
-      document.getElementById('filter-' + category).style.color = 'var(--white)';
-      document.getElementById('filter-' + category).style.borderColor = 'var(--blue)';
-      let visible = 0;
-      cards.forEach(card => {
-        const show = category === 'all' || card.dataset.category === category;
-        card.style.display = show ? 'flex' : 'none';
-        if (show) visible++;
-      });
-      document.getElementById('news-empty').style.display = visible === 0 ? 'block' : 'none';
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('filter-active'));
+      document.getElementById('filter-' + category).classList.add('filter-active');
+      renderPosts(category);
     }
+
+    async function loadNews() {
+      const results = await Promise.all(
+        NEWS_FILES.map(async slug => {
+          try {
+            const res = await fetch(`/content/news/${slug}.md`);
+            if (!res.ok) return null;
+            const text = await res.text();
+            const { data } = parseFrontmatter(text);
+            return { slug, data };
+          } catch { return null; }
+        })
+      );
+      allPosts = results.filter(Boolean);
+      // Sort by date descending (most recent first)
+      allPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
+      renderPosts('all');
+    }
+
+    loadNews();
   </script>
+
 </body>
 </html>
